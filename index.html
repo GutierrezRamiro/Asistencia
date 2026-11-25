@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro de Salud Asistencia Pública | Oruro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --azul-institucional: #0F2942;
+            --verde-salud: #0D9488;
+            --fondo-suave: #F8FAFC;
+            --borde-sutil: #E2E8F0;
+        }
+
+        body {
+            background-color: var(--fondo-suave);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #1E293B;
+        }
+
+        @keyframes aparecer {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animar-vista {
+            animation: aparecer 0.45s ease-out forwards;
+        }
+
+        /* Barra Lateral Elegante */
+        .sidebar {
+            background-color: var(--azul-institucional);
+            color: #FFFFFF;
+            min-height: 100vh;
+            padding: 28px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .logo-box {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 20px;
+        }
+
+        .logo-guia {
+            background: rgba(255,255,255,0.06);
+            border: 1px dashed rgba(255,255,255,0.3);
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+
+        .logo-guia img {
+            max-height: 64px;
+            object-fit: contain;
+        }
+
+        .sidebar .nav-link {
+            color: #CBD5E1;
+            font-weight: 500;
+            font-size: 0.92rem;
+            padding: 11px 16px;
+            border-radius: 10px;
+            margin-bottom: 4px;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .sidebar .nav-link:hover {
+            background-color: rgba(255,255,255,0.08);
+            color: #FFFFFF;
+            transform: translateX(4px);
+        }
+
+        .sidebar .nav-link.active {
+            background-color: var(--verde-salud);
+            color: #FFFFFF;
+            font-weight: 600;
+        }
+
+        /* Barra Superior Minimalista */
+        .topbar {
+            background: #FFFFFF;
+            border: 1px solid var(--borde-sutil);
+            border-radius: 14px;
+            padding: 14px 24px;
+            margin-bottom: 28px;
+        }
+
+        .topbar small {
+            display: block;
+            font-size: 0.72rem;
+            color: #64748B;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        /* Títulos y Tarjetas */
+        .titulo-seccion {
+            color: var(--azul-institucional);
+            font-weight: 700;
+            font-size: 1.35rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .titulo-seccion::before {
+            content: "";
+            width: 4px;
+            height: 24px;
+            background-color: var(--verde-salud);
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .tarjeta {
+            background: #FFFFFF;
+            border: 1px solid var(--borde-sutil);
+            border-radius: 16px;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .tarjeta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px rgba(15, 41, 66, 0.06);
+        }
+
+        /* Marcos de Imágenes Fáciles de Reemplazar */
+        .marco-img {
+            background-color: #F1F5F9;
+            border: 1.5px dashed #94A3B8;
+            border-radius: 12px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .marco-img img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        .texto-img {
+            font-size: 0.75rem;
+            color: #475569;
+            font-weight: 600;
+            background: #E2E8F0;
+            padding: 4px 10px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .seccion-vista {
+            display: none;
+        }
+
+        .seccion-vista.activa {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- MENÚ LATERAL -->
+        <nav class="col-md-3 col-lg-2 d-md-block sidebar">
+            <div>
+                <div class="logo-box">
+                    <div class="logo-guia">
+                        <img src="img/1.png" alt="Logo">
+                        <div class="mt-1">
+                            <span class="texto-img">Aquí va logo: img/1.png</span>
+                        </div>
+                    </div>
+                    <h6 class="fw-bold text-white mb-0" style="letter-spacing: 0.4px;">ASISTENCIA PÚBLICA</h6>
+                    <small style="color: #94A3B8;">Centro de Salud • Oruro</small>
+                </div>
+
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a class="nav-link active" onclick="mostrarSeccion('inicio', this)"><i class="bi bi-house"></i> Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" onclick="mostrarSeccion('nosotros', this)"><i class="bi bi-building"></i> Nosotros</a></li>
+                    <li class="nav-item"><a class="nav-link" onclick="mostrarSeccion('servicios', this)"><i class="bi bi-heart-pulse"></i> Servicios</a></li>
+                    <li class="nav-item"><a class="nav-link" onclick="mostrarSeccion('programas', this)"><i class="bi bi-shield-check"></i> Programas</a></li>
+                    <li class="nav-item"><a class="nav-link" onclick="mostrarSeccion('instalaciones', this)"><i class="bi bi-grid"></i> Ambientes</a></li>
+                    <li class="nav-item"><a class="nav-link" onclick="mostrarSeccion('personal', this)"><i class="bi bi-person-vcard"></i> Personal Médico</a></li>
+                    <li class="nav-item"><a class="nav-link" onclick="mostrarSeccion('avisos', this)"><i class="bi bi-megaphone"></i> Avisos</a></li>
+                    <li class="nav-item mt-3 pt-3 border-top border-secondary border-opacity-25">
+                        <a class="nav-link" onclick="mostrarSeccion('admin', this)"><i class="bi bi-gear"></i> Administración</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="pt-4 border-top border-secondary border-opacity-25 small" style="color: #CBD5E1;">
+                <p class="mb-1 fw-semibold text-white">Horario de Atención</p>
+                <p class="mb-2 dato-horario">Lunes a Viernes: 08:00 - 18:00</p>
+                <p class="mb-0"><i class="bi bi-geo-alt text-info me-1"></i> <span class="dato-direccion">Calle Bolívar y Presidente Montes, Oruro</span></p>
+            </div>
+        </nav>
+
+        <!-- CONTENIDO PRINCIPAL -->
+        <main class="col-md-9 ms-sm-auto col-lg-10 p-4 p-lg-5">
+            <!-- BARRA SUPERIOR DINÁMICA -->
+            <div class="topbar shadow-sm">
+                <div class="row align-items-center g-2 text-center text-md-start">
+                    <div class="col-md-4">
+                        <small><i class="bi bi-telephone text-primary"></i> Teléfonos</small>
+                        <span class="fw-semibold dato-telefonos">52-51234 / 52-54321</span>
+                    </div>
+                    <div class="col-md-4">
+                        <small><i class="bi bi-whatsapp text-success"></i> Celular / Consultas</small>
+                        <span class="fw-semibold dato-celular">718-12345</span>
+                    </div>
+                    <div class="col-md-4 text-md-end">
+                        <small><i class="bi bi-geo-alt text-danger"></i> Ubicación</small>
+                        <span class="fw-semibold dato-direccion">Calle Bolívar y Presidente Montes, Oruro</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="animar-vista" id="contenedor-vistas">
+
+                <!-- 1. INICIO -->
+                <div id="vista-inicio" class="seccion-vista activa">
+                    <!-- BANNER ELEGANTE CON IMAGEN PRINCIPAL -->
+                    <div class="tarjeta p-4 p-md-5 mb-5 text-white" style="background: linear-gradient(135deg, #0F2942 0%, #0D9488 100%); border: none;">
+                        <div class="row align-items-center g-4">
+                            <div class="col-lg-7">
+                                <span class="badge bg-white bg-opacity-10 text-white px-3 py-2 rounded-pill mb-3">
+                                    Primer Nivel de Atención • Oruro
+                                </span>
+                                <h1 class="fw-bold mb-3" style="font-size: 2rem;">Centro de Salud Asistencia Pública</h1>
+                                <p class="mb-4" style="color: #E2E8F0; line-height: 1.6;">
+                                    Atención primaria integral, prevención y cuidado humanizado para las familias de Oruro.
+                                </p>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <button onclick="irASeccion('servicios')" class="btn btn-light fw-semibold px-4 py-2 rounded-pill" style="color: #0F2942;">
+                                        Conocer Servicios
+                                    </button>
+                                    <button onclick="irASeccion('avisos')" class="btn btn-outline-light px-4 py-2 rounded-pill">
+                                        Comunicados Oficiales
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="marco-img" style="background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3);">
+                                    <img src="img/2.png" alt="Banner Principal">
+                                    <span class="texto-img">Aquí va imagen principal: img/2.png</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PRESENTACIÓN CON FACHADA -->
+                    <h2 class="titulo-seccion">Nuestra Institución</h2>
+                    <div class="tarjeta p-4 mb-5">
+                        <div class="row align-items-center g-4">
+                            <div class="col-md-7">
+                                <p class="mb-0" style="line-height: 1.8; color: #334155; font-size: 0.98rem;">
+                                    Somos un establecimiento de salud de primer nivel dedicado a brindar atención médica general, enfermería, vacunación y programas preventivos con calidez, respeto y compromiso comunitario en <strong class="dato-direccion">Calle Bolívar y Presidente Montes, Oruro</strong>.
+                                </p>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="marco-img">
+                                    <img src="img/3.png" alt="Fachada del Centro">
+                                    <span class="texto-img">Aquí va fachada: img/3.png</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ACCESOS RÁPIDOS -->
+                    <h2 class="titulo-seccion">Atención e Información</h2>
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="tarjeta p-4 h-100">
+                                <i class="bi bi-clock-history fs-3 text-success mb-3 d-block"></i>
+                                <h6 class="fw-bold">Horario de Atención</h6>
+                                <p class="small text-muted mb-0 dato-horario">Lunes a Viernes: 08:00 - 18:00</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="tarjeta p-4 h-100">
+                                <i class="bi bi-telephone-outbound fs-3 text-success mb-3 d-block"></i>
+                                <h6 class="fw-bold">Líneas Directas</h6>
+                                <p class="small text-muted mb-0">Fijo: <span class="dato-telefonos">52-51234 / 52-54321</span><br>Celular: <span class="dato-celular">718-12345</span></p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="tarjeta p-4 h-100">
+                                <i class="bi bi-geo-alt-fill fs-3 text-success mb-3 d-block"></i>
+                                <h6 class="fw-bold">Ubicación</h6>
+                                <p class="small text-muted mb-0 dato-direccion">Calle Bolívar y Presidente Montes, Oruro</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. NOSOTROS -->
+                <div id="vista-nosotros" class="seccion-vista">
+                    <h2 class="titulo-seccion mb-4">Sobre Nosotros</h2>
+                    <div class="card border-0 shadow-sm rounded-4 p-4">
+                        <h5 class="fw-bold" style="color: #0F2942;">Institución de Salud al Servicio de Oruro</h5>
+                        <p class="text-muted" style="line-height: 1.8;">
+                            El Centro de Salud Asistencia Pública brinda atención primaria, preventiva y curativa en el corazón de la ciudad de Oruro (<span class="dato-direccion">Calle Bolívar y Presidente Montes, Oruro</span>), garantizando acceso oportuno y trato humanizado a todos los pacientes.
+                        </p>
+                        <div class="row g-3 mt-2">
+                            <div class="col-md-6">
+                                <div class="p-3 bg-light rounded-3">
+                                    <h6 class="fw-bold text-primary">Misión</h6>
+                                    <p class="small text-muted mb-0">Proporcionar servicios de salud integrales con calidad, calidez y equidad para mejorar el bienestar de las familias orureñas.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3 bg-light rounded-3">
+                                    <h6 class="fw-bold text-primary">Visión</h6>
+                                    <p class="small text-muted mb-0">Ser un centro de salud referente en atención primaria y prevención comunitaria en el departamento de Oruro.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. SERVICIOS -->
+                <div id="vista-servicios" class="seccion-vista">
+                    <h2 class="titulo-seccion mb-4">Nuestros Servicios</h2>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+                                <h5 class="fw-bold" style="color: #0F2942;">Medicina General</h5>
+                                <p class="text-muted small mb-0">Consultas médicas integrales, diagnóstico y seguimiento clínico.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+                                <h5 class="fw-bold" style="color: #0F2942;">Odontología</h5>
+                                <p class="text-muted small mb-0">Atención preventiva, curaciones, extracciones y salud bucal.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+                                <h5 class="fw-bold" style="color: #0F2942;">Enfermería y Curaciones</h5>
+                                <p class="text-muted small mb-0">Inyectables, control de signos vitales, suturas y curaciones.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+                                <h5 class="fw-bold" style="color: #0F2942;">Vacunación (PAI)</h5>
+                                <p class="text-muted small mb-0">Esquema nacional de vacunación para niños, adultos y adultos mayores.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+                                <h5 class="fw-bold" style="color: #0F2942;">Control Prenatal y Planificación</h5>
+                                <p class="text-muted small mb-0">Seguimiento integral a mujeres embarazadas y salud reproductiva.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+                                <h5 class="fw-bold" style="color: #0F2942;">Farmacia</h5>
+                                <p class="text-muted small mb-0">Dispensación de medicamentos esenciales y orientación farmacéutica.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. PROGRAMAS -->
+                <div id="vista-programas" class="seccion-vista">
+                    <h2 class="titulo-seccion mb-4">Programas de Salud</h2>
+                    <div class="card border-0 shadow-sm rounded-4 p-4">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item py-3"><strong>SUS (Sistema Único de Salud):</strong> Atención gratuita universal para la población sin seguro a corto plazo.</li>
+                            <li class="list-group-item py-3"><strong>Programa Ampliado de Inmunización (PAI):</strong> Campañas permanentes de vacunación infantil y contra la influenza.</li>
+                            <li class="list-group-item py-3"><strong>Control de Crecimiento y Desarrollo:</strong> Seguimiento nutricional y pediátrico para menores de 5 años.</li>
+                            <li class="list-group-item py-3"><strong>Prevención de Enfermedades Crónicas:</strong> Detección y control de hipertensión arterial y diabetes.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 5. AMBIENTES (INSTALACIONES) -->
+                <div id="vista-instalaciones" class="seccion-vista">
+                    <h2 class="titulo-seccion">Ambientes del Centro de Salud</h2>
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="tarjeta p-3 h-100">
+                                <div class="marco-img mb-3">
+                                    <img src="img/4.png" alt="Sala de Espera">
+                                    <span class="texto-img">Aquí va foto: img/4.png</span>
+                                </div>
+                                <h6 class="fw-bold mb-1" style="color: #0F2942;">Sala de Espera</h6>
+                                <p class="small text-muted mb-0">Espacio amplio y ordenado para la recepción de pacientes.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="tarjeta p-3 h-100">
+                                <div class="marco-img mb-3">
+                                    <img src="img/5.png" alt="Consultorios Médicos">
+                                    <span class="texto-img">Aquí va foto: img/5.png</span>
+                                </div>
+                                <h6 class="fw-bold mb-1" style="color: #0F2942;">Consultorios Médicos</h6>
+                                <p class="small text-muted mb-0">Ambientes equipados para consulta general y control prenatal.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="tarjeta p-3 h-100">
+                                <div class="marco-img mb-3">
+                                    <img src="img/6.png" alt="Enfermería y Vacunatorio">
+                                    <span class="texto-img">Aquí va foto: img/6.png</span>
+                                </div>
+                                <h6 class="fw-bold mb-1" style="color: #0F2942;">Enfermería y Vacunatorio</h6>
+                                <p class="small text-muted mb-0">Área destinada a inmunizaciones, curaciones y control vital.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. PERSONAL MÉDICO -->
+                <div id="vista-personal" class="seccion-vista">
+                    <h2 class="titulo-seccion mb-4">Personal Médico y de Salud</h2>
+                    <div class="card border-0 shadow-sm rounded-4 p-4">
+                        <p class="text-muted mb-3">Nuestro equipo multidisciplinario atiende en el horario de <strong class="dato-horario">Lunes a Viernes: 08:00 - 18:00</strong>:</p>
+                        <div class="row g-3">
+                            <div class="col-md-6"><div class="p-3 border rounded-3"><strong>Médicos Generales</strong><br><small class="text-muted">Atención clínica de turno mañana y tarde</small></div></div>
+                            <div class="col-md-6"><div class="p-3 border rounded-3"><strong>Cirujanos Dentistas</strong><br><small class="text-muted">Área de Odontología Integral</small></div></div>
+                            <div class="col-md-6"><div class="p-3 border rounded-3"><strong>Licenciadas en Enfermería</strong><br><small class="text-muted">Vacunación, triaje y curaciones</small></div></div>
+                            <div class="col-md-6"><div class="p-3 border rounded-3"><strong>Personal Administrativo y Farmacia</strong><br><small class="text-muted">Admisión, orientación y entrega de medicamentos</small></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7. AVISOS -->
+                <div id="vista-avisos" class="seccion-vista">
+                    <h2 class="titulo-seccion mb-4">Avisos y Comunicados</h2>
+                    <div id="contenedor-avisos-publicos"></div>
+                </div>
+
+                <!-- 8. PANEL DE ADMINISTRACIÓN -->
+                <div id="vista-admin" class="seccion-vista">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h3 class="fw-bold mb-0" style="color: #0F2942;">Panel de Administración</h3>
+                        <button onclick="irASeccion('inicio')" class="btn btn-outline-primary rounded-pill px-4">Ver Página Pública</button>
+                    </div>
+
+                    <div id="alerta-admin" class="alert alert-success rounded-3 d-none"></div>
+
+                    <div class="row g-4">
+                        <div class="col-md-5">
+                            <div class="card border-0 shadow-sm rounded-4 p-4">
+                                <h5 class="fw-bold mb-3">Teléfonos, Horario y Ubicación</h5>
+                                <form onsubmit="guardarDatos(event)">
+                                    <div class="mb-3">
+                                        <label class="form-label small fw-bold">Teléfonos</label>
+                                        <input type="text" id="input-telefonos" value="52-51234 / 52-54321" class="form-control" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label small fw-bold">Celular</label>
+                                        <input type="text" id="input-celular" value="718-12345" class="form-control" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label small fw-bold">Ubicación</label>
+                                        <input type="text" id="input-direccion" value="Calle Bolívar y Presidente Montes, Oruro" class="form-control" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label small fw-bold">Horario</label>
+                                        <input type="text" id="input-horario" value="Lunes a Viernes: 08:00 - 18:00" class="form-control" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-success w-100 rounded-pill fw-semibold">
+                                        Guardar Cambios
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="col-md-7">
+                            <div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
+                                <h5 class="fw-bold mb-3">Publicar Nuevo Aviso</h5>
+                                <form onsubmit="publicarAviso(event)">
+                                    <div class="row g-2 mb-3">
+                                        <div class="col-md-7">
+                                            <label class="form-label small fw-bold">Título</label>
+                                            <input type="text" id="input-titulo-aviso" class="form-control" placeholder="Título del comunicado" required>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <label class="form-label small fw-bold">Fecha</label>
+                                            <input type="date" id="input-fecha-aviso" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label small fw-bold">Mensaje</label>
+                                        <textarea id="input-mensaje-aviso" rows="3" class="form-control" placeholder="Escribe el mensaje..." required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100 rounded-pill fw-semibold" style="background:#0F2942; border:none;">
+                                        Publicar Aviso
+                                    </button>
+                                </form>
+                            </div>
+
+                            <div class="card border-0 shadow-sm rounded-4 p-4">
+                                <h6 class="fw-bold mb-3">Avisos Publicados</h6>
+                                <div id="contenedor-avisos-admin"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    let avisos = [
+        {
+            id: 1,
+            titulo: "Campaña de Vacunación contra la Influenza",
+            fecha: "25/11/2026",
+            mensaje: "Se comunica a toda la población de Oruro que se encuentra disponible la vacuna contra la influenza de manera gratuita en nuestro vacunatorio."
+        }
+    ];
+
+    document.getElementById('input-fecha-aviso').valueAsDate = new Date();
+
+    function mostrarSeccion(nombre, elementoMenu) {
+        document.querySelectorAll('.seccion-vista').forEach(sec => sec.classList.remove('activa'));
+        document.getElementById('vista-' + nombre).classList.add('activa');
+
+        const contenedor = document.getElementById('contenedor-vistas');
+        contenedor.classList.remove('animar-vista');
+        void contenedor.offsetWidth;
+        contenedor.classList.add('animar-vista');
+
+        if (elementoMenu) {
+            document.querySelectorAll('.sidebar .nav-link').forEach(link => link.classList.remove('active'));
+            elementoMenu.classList.add('active');
+        }
+    }
+
+    function irASeccion(nombre) {
+        const enlaces = document.querySelectorAll('.sidebar .nav-link');
+        enlaces.forEach(link => {
+            if (link.getAttribute('onclick').includes("'" + nombre + "'")) {
+                mostrarSeccion(nombre, link);
+            }
+        });
+    }
+
+    function mostrarAlerta(texto) {
+        const alerta = document.getElementById('alerta-admin');
+        alerta.textContent = texto;
+        alerta.classList.remove('d-none');
+        setTimeout(() => alerta.classList.add('d-none'), 3500);
+    }
+
+    function guardarDatos(e) {
+        e.preventDefault();
+        const tel = document.getElementById('input-telefonos').value;
+        const cel = document.getElementById('input-celular').value;
+        const dir = document.getElementById('input-direccion').value;
+        const hor = document.getElementById('input-horario').value;
+
+        document.querySelectorAll('.dato-telefonos').forEach(el => el.textContent = tel);
+        document.querySelectorAll('.dato-celular').forEach(el => el.textContent = cel);
+        document.querySelectorAll('.dato-direccion').forEach(el => el.textContent = dir);
+        document.querySelectorAll('.dato-horario').forEach(el => el.textContent = hor);
+
+        mostrarAlerta("Datos del centro actualizados correctamente.");
+    }
+
+    function publicarAviso(e) {
+        e.preventDefault();
+        const titulo = document.getElementById('input-titulo-aviso').value;
+        const fechaRaw = document.getElementById('input-fecha-aviso').value;
+        const mensaje = document.getElementById('input-mensaje-aviso').value;
+
+        const partes = fechaRaw.split('-');
+        const fechaFormateada = `${partes[2]}/${partes[1]}/${partes[0]}`;
+
+        avisos.unshift({
+            id: Date.now(),
+            titulo: titulo,
+            fecha: fechaFormateada,
+            mensaje: mensaje
+        });
+
+        document.getElementById('input-titulo-aviso').value = '';
+        document.getElementById('input-mensaje-aviso').value = '';
+        renderizarAvisos();
+        mostrarAlerta("Aviso publicado correctamente.");
+    }
+
+    function borrarAviso(id) {
+        avisos = avisos.filter(av => av.id !== id);
+        renderizarAvisos();
+    }
+
+    function renderizarAvisos() {
+        const contPublico = document.getElementById('contenedor-avisos-publicos');
+        const contAdmin = document.getElementById('contenedor-avisos-admin');
+
+        if (avisos.length === 0) {
+            contPublico.innerHTML = `<div class="card border-0 shadow-sm rounded-4 p-4 text-muted">No hay avisos publicados por el momento.</div>`;
+            contAdmin.innerHTML = `<p class="text-muted small mb-0">No hay avisos publicados.</p>`;
+            return;
+        }
+
+        contPublico.innerHTML = avisos.map(av => `
+            <div class="card border-0 shadow-sm rounded-4 p-4 border-start border-4 border-warning mb-3">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="badge bg-warning text-dark px-3 py-2 rounded-pill">Comunicado Oficial</span>
+                    <small class="text-muted fw-semibold">${av.fecha}</small>
+                </div>
+                <h4 class="fw-bold mt-3 mb-2" style="color: #0F2942;">${av.titulo}</h4>
+                <p class="mb-0" style="line-height: 1.8; color: #334155;">${av.mensaje.replace(/\n/g, '<br>')}</p>
+            </div>
+        `).join('');
+
+        contAdmin.innerHTML = avisos.map(av => `
+            <div class="d-flex justify-content-between align-items-center p-2 border rounded-3 mb-2 bg-light">
+                <div>
+                    <strong>${av.titulo}</strong>
+                    <small class="text-muted">(${av.fecha})</small>
+                </div>
+                <button onclick="borrarAviso(${av.id})" class="btn btn-sm btn-outline-danger rounded-pill">Eliminar</button>
+            </div>
+        `).join('');
+    }
+
+    renderizarAvisos();
+</script>
+</body>
+</html>
+```[cite: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
